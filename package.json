@@ -2,7 +2,7 @@
   "name": "webscrapping-apmc",
   "version": "1.0.0",
   "description": "Webscrapping APMC site price list for products.",
-  "main": "Server.js",
+  "main": "index.js",
   "type": "module",
   "dependencies": {
     "axios": "^0.27.2",
@@ -13,7 +13,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
