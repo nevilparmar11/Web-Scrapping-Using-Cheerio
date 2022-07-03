@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const fs = require("fs");
 
 const fetchUrls = async () => {
   try {
@@ -44,16 +45,26 @@ const fetchTable = async (DATASHEET_URL) => {
   }
 };
 
-async function printTables() {
+const savePriceListToFile = async (priceList) => {
+  fs.writeFile("PriceList.json", JSON.stringify(priceList), function (err) {
+    if (err) throw err;
+    console.log("complete");
+  });
+};
+
+const printTables = async () => {
   const urls = await fetchUrls();
+  let priceList = [];
 
   await Promise.all(
     urls.map(async (url) => {
       url = url.replace(/&/g, "&amp;");
       const table = await fetchTable(url);
-      console.log(table);
+      priceList.push(table);
     })
   );
-}
+
+  await savePriceListToFile(priceList);
+};
 
 printTables();
