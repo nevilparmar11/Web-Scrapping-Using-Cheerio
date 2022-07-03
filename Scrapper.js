@@ -1,6 +1,10 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
-const fs = require("fs");
+// const axios = require("axios").default;
+// const cheerio = require("cheerio").default;
+// const fs = require("fs").default;
+
+import axios from "axios";
+import cheerio from "cheerio";
+import { writeFile } from "fs";
 
 const fetchUrls = async () => {
   try {
@@ -46,13 +50,13 @@ const fetchTable = async (DATASHEET_URL) => {
 };
 
 const savePriceListToFile = async (priceList) => {
-  fs.writeFile("PriceList.json", JSON.stringify(priceList), function (err) {
+  writeFile("PriceList.json", priceList, function (err) {
     if (err) throw err;
     console.log("complete");
   });
 };
 
-const printTables = async () => {
+const getPriceList = async () => {
   const urls = await fetchUrls();
   let priceList = [];
 
@@ -64,7 +68,10 @@ const printTables = async () => {
     })
   );
 
-  await savePriceListToFile(priceList);
+  let jsonPriceList = JSON.stringify(priceList);
+  // await savePriceListToFile(jsonPriceList);
+
+  return jsonPriceList;
 };
 
-printTables();
+export { getPriceList };
