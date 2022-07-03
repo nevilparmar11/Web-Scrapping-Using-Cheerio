@@ -4,7 +4,7 @@ import express from "express";
 var app = express();
 import { getPriceList } from "./Scrapper.js";
 
-app.get("/prices", async (req, res) => {
+app.use("/prices", async (req, res) => {
   const priceList = await getPriceList();
   res.send(priceList);
 });
